@@ -1,0 +1,3 @@
+[submodule "xoid"]
+	path = xoid
+	url = https://github.com/xoidlabs/xoid
