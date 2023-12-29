@@ -175,10 +175,10 @@ function GitHubStarButton() {
   return (
     <div className="github-button">
       <GitHubButton
-        href="https://github.com/onurkerimov/xoid"
+        href="https://github.com/xoidlabs/xoid"
         data-icon="octicon-star"
         data-size="large"
-        aria-label="Star onurkerimov/xoid on GitHub">
+        aria-label="Star xoidlabs/xoid on GitHub">
         Star
       </GitHubButton>
     </div>
@@ -276,6 +276,8 @@ const Index = () => {
         <title>
           xoid · Framework-agnostic state management for JavaScript
         </title>
+        <link rel="preload" href="fonts/RobotoMono.ttf" as="font" crossorigin />
+        <link rel="preload" href="fonts/Inter.woff" as="font" crossorigin />
         {/* <script async defer src="https://buttons.github.io/buttons.js"></script> */}
       </Head>
       <HeaderHero />

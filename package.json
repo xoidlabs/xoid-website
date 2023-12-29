@@ -5,9 +5,9 @@
   "private": true,
   "license": "CC-BY-4.0",
   "homepage": "https://xoid.dev/",
-  "repository": "github:onurkerimov/xoid",
+  "repository": "github:xoidlabs/xoid",
   "bugs": {
-    "url": "https://github.com/onurkerimov/xoid/issues"
+    "url": "https://github.com/xoidlabs/xoid/issues"
   },
   "scripts": {
     "start": "docusaurus start",

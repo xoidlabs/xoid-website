@@ -16,8 +16,8 @@ module.exports = {
         docs: {
           showLastUpdateAuthor: false,
           showLastUpdateTime: true,
-          editUrl: 'https://github.com/onurkerimov/xoid/blob/master/website/',
-          path: '../docs',
+          editUrl: 'https://github.com/xoidlabs/xoid/blob/',
+          path: './xoid/docs',
           sidebarPath: require.resolve('./sidebars.json'),
         },
         blog: {
@@ -71,7 +71,7 @@ module.exports = {
         //   position: 'right',
         // },
         {
-          href: 'https://github.com/onurkerimov/xoid',
+          href: 'https://github.com/xoidlabs/xoid',
           'aria-label': 'GitHub repository',
           position: 'right',
           className: 'navbar-github-link',
@@ -108,7 +108,7 @@ module.exports = {
             // },
             {
               label: 'Github',
-              to: 'https://github.com/onurkerimov/xoid',
+              to: 'https://github.com/xoidlabs/xoid',
             },
             {
               label: 'OpenCollective',
@@ -121,7 +121,7 @@ module.exports = {
         //   items: [
         //     {
         //       html: `
-        //       <a class="github-button" href="https://github.com/onurkerimov/xoid" data-icon="octicon-star" aria-label="Star onurkerimov/xoid on GitHub">Star</a>
+        //       <a class="github-button" href="https://github.com/xoidlabs/xoid" data-icon="octicon-star" aria-label="Star xoidlabs/xoid on GitHub">Star</a>
         //       `,
         //     },
         //   ]
