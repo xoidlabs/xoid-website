@@ -1,6 +1,7 @@
 @import "shared";
 
 :root {
+  --ifm-pre-padding: 1rem 1.3rem;
   --ifm-color-info: rgba(170, 155, 255, 0.42);
   --docsearch-highlight-color: #8642ffba;
   --ifm-color-primary: rgba(106, 103, 255, 1);
@@ -358,10 +359,10 @@ html[data-theme="dark"] .avatar__name a {
 
 html[data-theme="dark"]  {
   .navbar .DocSearch-Button {
-    background: #18064e7d;
+    background: rgb(0 0 0 / 14%);
   }
   .navbar {
-    background: linear-gradient(-60deg, rgba(38, 46, 144, 0.69), rgb(43 21 116 / 63%) 50%, rgba(24, 34, 92, 0.8));
+    background: rgb(25 27 66 / 47%);//linear-gradient(-60deg,rgba(38,46,144,.69),rgb(57 23 129 / 63%) 50%,rgba(24,34,92,.8));
   }
 }
 
@@ -371,7 +372,7 @@ html[data-theme="dark"]  {
 
 .navbar::after {
   content: '';
-  background: linear-gradient(45deg, #6b26ff,#ff269e, #339ce5);
+  background: linear-gradient(45deg, #6b26ff,#ff26f8aa, #339ce5);
   height: 8px;
   height: 3px;
   left: 0;
@@ -1550,4 +1551,21 @@ html[data-theme="dark"] .navbar-sidebar {
 .navbar-sidebar .navbar-sidebar__brand {
   background: linear-gradient(-60deg,#6941a0,#372d7c);
   box-shadow: none;
+}
+
+.title .gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.60;
+  transition: opacity 1s;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 40%, rgba(182, 106, 255, 0.5) 0%, rgba(182, 106, 255, 0.2) 16%, rgba(182, 106, 255, 0.06) 50%, transparent 100%);
+}
+
+.title:hover .gradient {
+  opacity: 0.85;
 }

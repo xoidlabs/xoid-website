@@ -22,12 +22,14 @@
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.66",
     "@docusaurus/preset-classic": "2.0.0-alpha.66",
+    "@formkit/auto-animate": "^0.8.1",
     "docusaurus-plugin-sass": "^0.2.2",
     "marked": "^1.2.7",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-github-btn": "^1.2.0",
-    "sass": "^1.52.2"
+    "sass": "^1.52.2",
+    "tweakpane": "^4.0.3"
   },
   "devDependencies": {
     "alex": "^9.0.1",

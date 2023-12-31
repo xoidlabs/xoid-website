@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Layout from '@theme/Layout'
 import CodeBlock from '@theme/CodeBlock'
 import GitHubButton from 'react-github-btn'
@@ -6,6 +6,10 @@ import Head from '@docusaurus/Head'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import marked from 'marked'
 import Frameworks from '../components/frameworks'
+import HeaderHero2 from '../components/header-hero' 
+import DemoSection from '../components/demo-section'
+import { TwoColumns, Section } from '../components'
+
 
 const textContent = {
   left: `
@@ -56,7 +60,6 @@ const $counter = create(3, (atom) => ({
 }))
 
 $counter.actions.incrementBy(5)
-setInterval($counter.actions.increment, 1000)
 `,
   },
   {
@@ -185,37 +188,46 @@ function GitHubStarButton() {
   )
 }
 
-function Section({
-  element = 'section',
-  children,
-  className,
-  background = 'light',
-  style
-}) {
-  const El = element
-  return <El className={`Section ${className} ${background}`} style={style}>{children}</El>
-}
-
-function TwoColumns({ columnOne, columnTwo, reverse }) {
-  return (
-    <div className={`TwoColumns ${reverse ? 'reverse' : ''}`}>
-      <div className={`column first ${reverse ? 'right' : 'left'}`}>
-        {columnOne}
-      </div>
-      <div className={`column last ${reverse ? 'left' : 'right'}`}>
-        {columnTwo}
-      </div>
-    </div>
-  )
-}
-
 function HeaderHero() {
   return (
-    <Section background="none" className="HeaderHero" style={{paddingTop: 100}}>
+    <Section background="none" className="HeaderHero" style={{paddingTop: 100, position: 'relative' }}>
+{/* <svg
+  className="background"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+  style={{
+    position: "absolute",
+    top: 0,
+    right: 0,
+    height: "100%",
+    width: "100%",
+    zIndex: 0,
+    opacity: "0.85",
+    pointerEvents: 'none'
+  }}
+>
+  <radialGradient
+    id="grad2"
+    gradientUnits="userSpaceOnUse"
+    cx="51%"
+    cy="39%"
+    r="58%"
+    style={{}}
+  >
+    <stop offset="0%" stopColor="rgba(182,106,255,0.5)" />
+    <stop offset="50%" stopColor="rgba(182,106,255,0.2)" />
+    <stop offset="75%" stopColor="rgba(182,106,236,0.06)" />
+    <stop offset="100%" stopColor="rgba(182,106,236,0)" />
+  </radialGradient>
+  <rect fill="url(#grad2)" width="100%" height="100%" />
+</svg> */}
       {/* <GitHubStarButton /> */}
-      <div className="titleContainer">
+      <div className="titleContainer" style={{zIndex: 1}}>
         <div className="title">
-          <img src="img/logo.svg" width={250} />
+        <div className="gradient"></div>
+
+          {/* <img src="img/logo.svg" width={250} /> */}
           {/* <img src="img/logo-full.svg" width={550} /> */}
         {/* <div style={{ display: 'flex', alignItems: 'center', marginBottom: -25 }}>
           <img src="img/logo.svg" width={300} />
@@ -225,6 +237,7 @@ function HeaderHero() {
             </div>
           </div>
         </div> */}
+        <HeaderHero2 />
         </div>
         <p className="tagline">
             Framework-agnostic state management library designed for simplicity and scalability
@@ -260,7 +273,7 @@ function NativeApps() {
 
 function NativeCode(props) {
   return (
-    <Section className="NativeCode" background={props.tint ? 'tint' : 'light'}>
+    <Section className={`NativeCode ${props.corner ? 'corner': ''}`} background={props.tint ? 'tint' : 'light'}>
       <TwoColumns
         columnOne={<TextColumn text={marked(props.content.text)} />}
         columnTwo={<CodeBlock language="jsx">{props.content.code}</CodeBlock>}
@@ -276,13 +289,12 @@ const Index = () => {
         <title>
           xoid · Framework-agnostic state management for JavaScript
         </title>
-        <link rel="preload" href="fonts/RobotoMono.ttf" as="font" crossorigin />
-        <link rel="preload" href="fonts/Inter.woff" as="font" crossorigin />
         {/* <script async defer src="https://buttons.github.io/buttons.js"></script> */}
       </Head>
       <HeaderHero />
+      <DemoSection />
       {codeBlocks.map((content, i) => (
-        <NativeCode content={content} tint={!(i % 2)} />
+        <NativeCode content={content} tint={(i % 2)} corner={i === 0} />
       ))}
       <Section background="none" className="Embed" style={{ display: 'flex', justifyContent: 'center', padding: 25 }}>
         <iframe

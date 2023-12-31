@@ -6,6 +6,7 @@ const Frameworks = () => {
     className="tablist"
     aria-orientation="horizontal"
   >
+        <div>
     <button
       id="tab-react"
       role="tab"
@@ -59,6 +60,9 @@ const Frameworks = () => {
       </div>
       Vue
     </button>
+    </div>
+    <div>
+
     <button
       id="tab-svelte"
       role="tab"
@@ -106,6 +110,7 @@ const Frameworks = () => {
       </div>
       Vanilla JS
     </button>
+    </div>
   </div>
 }
 

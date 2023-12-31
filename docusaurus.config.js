@@ -17,7 +17,7 @@ module.exports = {
           showLastUpdateAuthor: false,
           showLastUpdateTime: true,
           editUrl: 'https://github.com/xoidlabs/xoid/blob/',
-          path: './xoid/docs',
+          path: './main/docs',
           sidebarPath: require.resolve('./sidebars.json'),
         },
         blog: {

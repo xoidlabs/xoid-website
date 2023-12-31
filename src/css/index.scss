@@ -1,4 +1,7 @@
 @import "shared";
+@import "headerhero";
+@import "demo";
+@import "checkbox";
 
 .homepage {
   margin-top: -60px;
@@ -15,7 +18,7 @@ html[data-theme="dark"] {
 /* ActionButton */
 
 .ActionButton {
-  padding: 0.75rem 1.5rem;
+  padding: 0.82rem 1.5rem;
   text-align: center;
   font-size: 1.25rem;
   font-weight: 400;
@@ -320,7 +323,7 @@ html[data-theme="dark"] {
 }
 
 .HeaderHero .tagline {
-  font-size: 36px;
+  font-size: 28px;
   line-height: 1.3;
   color: white;
   font-weight: 500;
@@ -366,7 +369,7 @@ html[data-theme="dark"] {
   }
 
   .HeaderHero .tagline {
-    font-size: 30px;
+    font-size: 25px;
   }
 }
 
@@ -645,7 +648,7 @@ html[data-theme="light"] {
 }
 
 .Section + .Section {
-  box-shadow: inset 0 2px 0px -1px rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 0px -1px rgb(203 201 255 / 18%);
 }
 
 .Section.tint {
@@ -764,10 +767,6 @@ html[data-theme="light"] {
   .TwoColumns .column.left {
     padding-right: 25px;
   }
-
-  .TwoColumns .column.right {
-    padding-left: 50px;
-  }
 }
 
 @media only screen and (max-width: 960px) {
@@ -829,7 +828,7 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   .HeaderHero {
-    background: rgb(24 0 49 / 6%);
+    background: none;
   }
 }
 
@@ -854,22 +853,22 @@ html[data-theme="dark"] {
 
 .HeaderHero .tagline {
   text-align: center;
-  font-size: 25px;
   color: #ffffff;
   line-height: 1.3;
   font-weight: 400;
-  max-width: 540px;
+  max-width: 660px;
   margin: 12px;
 }
 
 @media only screen and (max-width: 600px) {
   .HeaderHero .tagline {
-    font-size: 20px;
+    font-size: 23px;
   }
 }
 
 .HeaderHero .buttons {
   margin: 20px auto;
+  margin-bottom: 8px;
 }
 
 .HeaderHero .image {
@@ -879,7 +878,7 @@ html[data-theme="dark"] {
 }
 
 .ActionButton {
-  padding: 0.75rem 1.5rem;
+  padding: 0.82rem 1.5rem;
   text-align: center;
   font-size: 1.25rem;
   font-weight: 400;
@@ -895,8 +894,8 @@ html[data-theme="dark"] {
 .ActionButton.primary {
   color: #ffffff;
   background-color: transparent;
-  border-radius: 35px;
-  border: 8px solid #ffffff44;
+  border-radius: 14px;
+  border: 1px solid #ffffff94;
   &:hover {
     border-color: #fffa;
   }
@@ -930,6 +929,14 @@ html[data-theme="light"] {
   background: transparent;
 }
 
+html[data-theme=light] .NativeCode.corner .prism-code {
+  border-top-left-radius: 18px;
+  box-shadow: -20px -20px 0 0 #fff;
+}
+
+html[data-theme=light] .NativeCode.corner .TwoColumns .column.last.right {
+  background: #fff;
+}
 
 @media only screen and (min-width: 961px) {
   html[data-theme="light"] {
@@ -1035,31 +1042,46 @@ html[data-theme="dark"] {
   background: transparent;
   border: none;
   padding: 4px 8px;
-  margin: 0 4px;
+  margin: 0 8px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  font-size: 20px;
+  font-size: 19px;
   color: white;
   border-radius: 8px;
   font-family: var( --ifm-font-family-base );
 }
 
 .tablist button div {
-  width: 40px;
+  width: 30px;
+  display: flex;
+}
+
+.tablist > div {
+  display: flex;
 }
 
 @media only screen and (max-width: 600px) {
   .tablist button {
     font-size: 16px;
+    margin: 0 5px;
+
   }
   .tablist button div {
-    width: 30px;
+    width: 27px;
   }
 }
 
-.tablist button:hover {
-  // background: rgba(255, 255, 255, 0.15);
+@media only screen and (max-width: 600px) {
+  .HeaderHero .title {
+    margin-top: -35px;
+    margin-bottom: -10px;
+  }
 }
 
+@media only screen and (max-width: 760px) {
+  .HeaderHero .tagline {
+    text-wrap: balance;
+  }
+}
