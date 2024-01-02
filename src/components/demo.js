@@ -2,9 +2,10 @@ import { Pane } from 'tweakpane';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import autoAnimate from '@formkit/auto-animate';
 import Prism from 'prismjs';
+import 'prismjs/components/prism-jsx';
 
 const animationOptions = {
-  duration: 250,
+  duration: 330,
   easing: 'ease-in-out',
 };
 
@@ -147,7 +148,7 @@ function getText() {
       setTimeout(() => {
         options.beau = true;
         window.dispatchEvent(buildEvent);
-      }, animationOptions.duration + 100);
+      }, animationOptions.duration * 1.5);
     }
   } else options.beau = false;
 
@@ -164,7 +165,7 @@ ${[
   options.reusability === 'highest' && !options.globalState
     ? `  import { NumberModel } from './models.js'`
     : ``,
-  options.globalState ? `  import { $counter } from './models.js'` : ``,
+  options.globalState ? `  import { ${options.framework === 'svelte' ? `$counter as counterAtom` : `$counter`} } from './models.js'` : ``,
 ]
   .filter((s) => s)
   .join('\n')}
@@ -241,9 +242,18 @@ ${[
       .join('\n\n');
   };
 
+  const splitView = (options.framework === 'vue' || options.framework === 'svelte') && (options.globalState || options.reusability === 'highest')
+  const el = document.querySelector('.code-demo-container')
+  if(el){if(splitView) {
+    el.classList.add('split')
+  } else { 
+    el.classList.remove('split')
+  }}
+
   return join([
     imports,
     globalDeclarations,
+    splitView ? ['---']: [],
     [
       reactHeader,
       ...maybeAddNewLine([
@@ -257,12 +267,15 @@ ${[
 }
 
 const maybeAddNewLine = (arr) => {
-  if (options.framework !== 'react' && options.framework !== 'doja') return arr;
+  if (options.framework !== 'react' && options.framework !== 'doja') {
+    if (options.framework === 'svelte')
+    arr = arr.map((s) => s.replace(/\$counter/g, 'counterAtom'));
+    
+    return arr;}
   arr = arr.filter((s) => s).flatMap((s) => s.split('\n'));
   if (arr.length > 1) arr[arr.length - 1] = arr[arr.length - 1] + '\n';
 
-  if (options.framework === 'svelte')
-    return arr.map((s) => s.replace(/\$counter/g, 'counterAtom'));
+
   return arr;
 };
 
@@ -276,6 +289,13 @@ const getKey = (line) =>
     .trim()
     .replace(/^(export )?const /, '')
     .substring(0, 7);
+
+window.addEventListener('build', () => {
+  const el = document.querySelector('.code-demo-container')
+
+  el.classList.remove('animate')
+  setTimeout(() => el.classList.add('animate'))
+})
 
 export default function App() {
   const [lines, setLines] = useState(() => getLines());
@@ -307,7 +327,7 @@ export default function App() {
   return (
     <code ref={ref}>
       {lines.map((line, i) => (
-        <Line key={keys[i]} line={line} />
+        line === '---' ? <Splitter framework={options.framework} key={'---'} /> : <Line key={keys[i]} line={line} />
       ))}
     </code>
   );
@@ -331,10 +351,18 @@ const Line = (props) => {
         __html:
           Prism.highlight(
             line || ' ',
-            Prism.languages.javascript,
+            Prism.languages.jsx,
             'javascript'
           ),
       }}
     />
   );
 };
+function Splitter(props) {
+  return <div className='splitter'>
+    <div className='filename'>
+      Counter.{props.framework}
+    </div>
+  </div>;
+}
+

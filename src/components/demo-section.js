@@ -2,6 +2,22 @@ import React, { useState } from "react";
 import { TwoColumns, Section } from './'
 import Demo, { options, buildEvent } from './demo'
 
+// setTimeout(() => {
+//   var prt = document.querySelector('.metaballs');
+//   var el = document.querySelector('.bigball');
+
+//   window.onmousemove = function(e){
+//     const rect = prt.getBoundingClientRect()
+//     console.log(rect)
+//     var x = e.clientX - rect.left - el.offsetWidth / 2;
+//     var y = e.clientY - rect.top - el.offsetHeight / 2;
+    
+//     el.style.top = y + "px"
+//     el.style.left = x + "px"
+//   }
+// })
+
+
 export default () => {
   const [state, setState] = useState(options)
 
@@ -11,6 +27,7 @@ export default () => {
     if(options.framework !== 'react' && options.framework !== 'doja') {
       options.signals = false
     }
+    if(options.framework === 'doja') options.signals = true
     setState({ ...options })
 
     window.dispatchEvent(buildEvent)
@@ -18,12 +35,12 @@ export default () => {
 
   return (
     <Section className={'demo'}>
-    <div style={{display: 'flex', maxWidth: 900, margin: 'auto', gap: '25px'}}>
-      <div style={{flex: 1}}>
+    <div>
+      <div className="column">
         <h2>Quick Look</h2>
         <p>
-        <b>xoid</b> makes it easy to refactor
-        between frameworks, scopes, and different degrees of reusability.
+        <b>xoid</b> makes it easier to refactor
+        between scopes, frameworks, and different degrees of reusability.
         </p>
         <div className="controls-container">
         <fieldset>
@@ -63,7 +80,7 @@ export default () => {
       </fieldset>
       <fieldset>
         <div className="checkbox">
-          <input id="c1" type="checkbox" disabled={options.framework !== 'react' && options.framework !== 'doja'} checked={state.signals} onChange={(e) => set('signals', e.target.checked)} />
+          <input id="c1" type="checkbox" disabled={options.framework !== 'react'} checked={state.signals} onChange={(e) => set('signals', e.target.checked)} />
           <label for="c1">Signals</label>
         </div>
         <div className="checkbox">
@@ -77,7 +94,13 @@ export default () => {
         </fieldset>
     </div>
     </div>
-    <div class="code-demo-container"  style={{flex: 2}}>
+    <div className="code-demo-container">
+      <div className="filename main">models.js</div>
+      <div className="window-buttons">
+        <div className="btn"></div>
+        <div className="btn"></div>
+        <div className="btn"></div>
+      </div>
         <Demo/>
     </div>
     </div>

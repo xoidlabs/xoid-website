@@ -6,6 +6,7 @@ import Head from '@docusaurus/Head'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import marked from 'marked'
 import Frameworks from '../components/frameworks'
+import FeatureColumns from '../components/feature-columns'
 import HeaderHero2 from '../components/header-hero' 
 import DemoSection from '../components/demo-section'
 import { TwoColumns, Section } from '../components'
@@ -263,9 +264,9 @@ function NativeApps() {
           <div dangerouslySetInnerHTML={{__html: marked(textContent.intro)}} />
         }
       /> */}
-      <div className="FeatureSection">
+      <div className="FeatureSection" style={{position:'relative'}}>
+        {/* <div className={'metaballs'} dangerouslySetInnerHTML={{ __html: marked(textContent.left) + '<div class="bigball"></div>' }} /> */}
         <div dangerouslySetInnerHTML={{ __html: marked(textContent.left) }} />
-        <div dangerouslySetInnerHTML={{ __html: marked(textContent.right) }} />
       </div>
     </Section>
   )
@@ -293,8 +294,9 @@ const Index = () => {
       </Head>
       <HeaderHero />
       <DemoSection />
+      <FeatureColumns />
       {codeBlocks.map((content, i) => (
-        <NativeCode content={content} tint={(i % 2)} corner={i === 0} />
+        <NativeCode content={content} tint={!(i % 2)} corner={0} />
       ))}
       <Section background="none" className="Embed" style={{ display: 'flex', justifyContent: 'center', padding: 25 }}>
         <iframe

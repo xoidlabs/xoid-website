@@ -3,7 +3,7 @@
 $spinner-size: 250px;                 // 200px
 $spinner-thickness: 14px;              // 4px
 $spinner-speed: 1.2s;                 // 1.2s
-$spinner-background: hsla(0,0%,100%,.27) ;               //hsla(0,0%,100%,.1)
+$spinner-background: hsla(0, 0%, 100%, 0.27) ;               //hsla(0,0%,100%,.1)
 
 $spinner-3d: true;                    // true
 $spinner-loops: infinite;             // infinite (be careful, save the batteries!)
@@ -121,4 +121,8 @@ html[data-theme="light"] {
   .HeaderHero .delay.spinner:before {
     border-top-color: hsl(0, 0%, 100%);
   }
+  .HeaderHero .spinner {
+    border: $spinner-thickness solid rgb(33 33 82 / 51%);
+  }
 }
+
