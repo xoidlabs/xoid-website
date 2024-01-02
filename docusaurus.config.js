@@ -31,6 +31,9 @@ module.exports = {
         },
         theme: {
           customCss: [
+            require.resolve('./src/css/demo.scss'),
+            require.resolve('./src/css/checkbox.scss'),
+            require.resolve('./src/css/headerhero.scss'),
             require.resolve('./src/css/customTheme.scss'),
             require.resolve('./src/css/index.scss'),
           ],

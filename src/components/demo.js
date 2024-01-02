@@ -1,4 +1,3 @@
-import { Pane } from 'tweakpane';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import autoAnimate from '@formkit/auto-animate';
 import Prism from 'prismjs';
@@ -358,6 +357,7 @@ const Line = (props) => {
     />
   );
 };
+
 function Splitter(props) {
   return <div className='splitter'>
     <div className='filename'>

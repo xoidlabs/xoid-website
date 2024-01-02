@@ -8,9 +8,7 @@ import marked from 'marked'
 import Frameworks from '../components/frameworks'
 import FeatureColumns from '../components/feature-columns'
 import HeaderHero2 from '../components/header-hero' 
-import DemoSection from '../components/demo-section'
 import { TwoColumns, Section } from '../components'
-
 
 const textContent = {
   left: `
@@ -283,6 +281,27 @@ function NativeCode(props) {
   )
 }
 
+function BrowserOnly({
+  children,
+  fallback,
+}) {
+  if (!('window' in global) || children == null) {
+    return fallback || null;
+  }
+
+  return <>{children()}</>;
+}
+
+const Lazy = () => {
+  const [ReactJson, setReactJsonView] = React.useState('div');
+  if (typeof window !== 'undefined') {
+    import('react-json-view').then((jsonView) => {
+      setReactJsonView(jsonView.default);
+    });
+  }
+  return ReactJson.de;
+}
+
 const Index = () => {
   return (
     <Layout wrapperClassName="homepage">
@@ -293,7 +312,14 @@ const Index = () => {
         {/* <script async defer src="https://buttons.github.io/buttons.js"></script> */}
       </Head>
       <HeaderHero />
-      <DemoSection />
+      <div>
+        <BrowserOnly>
+          {() => {
+            const DemoSection = require('../components/demo-section').default;
+            return <DemoSection />;
+          }}
+        </BrowserOnly>
+      </div>
       <FeatureColumns />
       {codeBlocks.map((content, i) => (
         <NativeCode content={content} tint={!(i % 2)} corner={0} />
