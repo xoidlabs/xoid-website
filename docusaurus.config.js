@@ -130,7 +130,7 @@ module.exports = {
         //   ]
         // }
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Docusaurus. Thanks to <a href="http://a-maslennikov.com/">Anatoly</a> for the <a href="https://www.flaticon.com/free-icon/ruler_245975">icon</a>.
+      copyright: `Copyright © ${new Date().getFullYear()} xoid.
       `,
     },
     algolia: {

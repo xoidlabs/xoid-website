@@ -79,10 +79,10 @@ export default () => {
         </div>
       </fieldset>
       <fieldset>
-        <div className="checkbox">
+        {/* <div className="checkbox">
           <input id="c1" type="checkbox" disabled={options.framework !== 'react'} checked={state.signals} onChange={(e) => set('signals', e.target.checked)} />
           <label for="c1">Signals</label>
-        </div>
+        </div> */}
         <div className="checkbox">
           <input id="c1" type="checkbox" checked={state.setterUpdates} onChange={(e) => set('setterUpdates', e.target.checked)} />
           <label for="c1">Setters</label>
@@ -92,6 +92,10 @@ export default () => {
           <label for="c1">Shorthands</label>
         </div> */}
         </fieldset>
+          <a className='github-star' target="_blank" href="https://github.com/xoidlabs/xoid">
+          Support us with your GitHub star 🤩
+          <img src="https://img.shields.io/github/stars/xoidlabs/xoid.svg?style=social&label=Star" aria-label="Star xoidlabs/xoid on GitHub" />
+          </a>
     </div>
     </div>
     <div className="code-demo-container">

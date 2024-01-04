@@ -29,7 +29,7 @@ const textContent = {
 }
 
 const codeBlocks = [
-  {text: `### Simple primitives
+  {text: `## Simple primitives
 **xoid** is based on *atoms*. Atoms are holders of state. \`create\` function is used to create them.
 
 It has a **Recoil**-inspired API for derived atoms. 
@@ -46,7 +46,7 @@ console.log($counter.value) // 6
 const $doubleCounter = create((read) => read($counter) * 2)
 `},
   {
-    text: `### Actions
+    text: `## Actions
 
 With the second argument, you can specify actions for your atoms.
 
@@ -63,16 +63,15 @@ $counter.actions.incrementBy(5)
   },
   {
     text: `
-### Framework integrations
+## Framework integrations
 
-**xoid** has React, Vue, and Svelte integrations.
-Just import \`useAtom\` for your favorite framework and start using!
+**xoid** has **React**, **Vue**, and **Svelte** integrations.
+Just import \`useAtom\` and start using!
 
 `,
     code: `import create from 'xoid'
 import { useAtom } from '@xoid/react'
-// import { useAtom } from '@xoid/vue'
-// import { useAtom } from '@xoid/svelte'
+// @xoid/vue and @xoid/svelte packages are used the same way
 
 // in a component
 const count = useAtom($counter)
@@ -84,7 +83,7 @@ const unsubscribe = $counter.subscribe(console.log)
   },
   {
     text: `
-### No more hand-written reducers!
+## No more hand-written reducers!
 
 There's the \`.focus\` method, which can be used as a selector/lens. 
 **xoid** is based on immutable updates, so if you "surgically" set state of a focused branch, changes will propagate to the root.
@@ -104,9 +103,8 @@ assert(atom.value !== previousValue) // ✅
   },
   {
     text: `
-### No-API Finite State Machines!
-No additional syntax is required for finite state machines. 
-Just use the \`create\` function.
+## No-API Finite State Machines!
+Atoms are potent primitives. No additional syntax is required for expressing finite state machines. 
 
 `,
     code: `import create from 'xoid'
@@ -165,7 +163,7 @@ function HomeCallToAction() {
 function TwitterButton() {
   return (
     <a
-      href="https://twitter.com/intent/follow?screen_name=xoid&region=follow_link"
+      href=""
       className="twitter-follow-button">
       <div className="icon" />
       Follow @xoid
@@ -290,16 +288,6 @@ function BrowserOnly({
   }
 
   return <>{children()}</>;
-}
-
-const Lazy = () => {
-  const [ReactJson, setReactJsonView] = React.useState('div');
-  if (typeof window !== 'undefined') {
-    import('react-json-view').then((jsonView) => {
-      setReactJsonView(jsonView.default);
-    });
-  }
-  return ReactJson.de;
 }
 
 const Index = () => {

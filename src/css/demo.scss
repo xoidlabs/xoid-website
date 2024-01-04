@@ -1,5 +1,5 @@
-/*@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");*/
-/*@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700;800;900&display=swap");*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700;800;900&display=swap");
 
 .code-demo-container {
   border-radius: 14px;
@@ -85,12 +85,16 @@
   height: 2.5px;
   display: block;
   margin-left: -26px;
+  position: relative;
   background-image: radial-gradient(
     farthest-corner at 0px 0px,
     rgba(255, 255, 255, 0.3) 0%,
     transparent 40%
   );
   animation: fadeIn 1s;
+  .filename {
+    top: 1px;
+  }
 }
 
 .code-demo-container .filename {
@@ -103,7 +107,7 @@
   font-size: 11px;
   padding: 2px 7px;
   border-bottom-right-radius: 9px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
   user-select: none;
   -webkit-user-select: none;
   font-family: var(--ifm-font-family-monospace);
@@ -304,9 +308,13 @@ code .token.tag {
     position: absolute;
     white-space: nowrap;
     width: 1px;
+    &:hover + span {
+      background-color: rgba(64, 64, 137, 0.20);
+      color: #fffc;
+    }
     &:checked + span {
-      box-shadow: 0 0 0 0.0625em #fffd;
-      background-color: #40408974;
+      box-shadow: 0 0 0 0.0625em rgb(176 173 213);
+      background-color: #40408964;
 
       z-index: 1;
       color: #fffd;
@@ -363,14 +371,14 @@ html[data-theme="light"] .Section.demo {
     background-color: #21215016;
     box-shadow: 0 0 0 1px rgb(113 100 173 / 97%);
   }
-  input[type="radio"]:focus + span {
-    background-color: red;
-  }
   input[type="radio"]:checked + span {
-    box-shadow: 0 0 0 0.0625em #fffd;
-    background-color: #ffffff0f;
+    box-shadow: 0 0 0 1px #fffc;
+    background-color: rgba(255, 255, 255, 0.03);
     z-index: 1;
-    color: #fffd;
+    color: #fffc;
+  }
+  input[type="radio"]:hover + span {
+    background-color: rgba(255, 255, 255, 0.02);
   }
 }
 
@@ -403,3 +411,15 @@ html[data-theme="light"] .Section.demo {
     zoom: 0.9;
   }
 }
+
+@media only screen and (max-width: 420px) {
+  .controls-container label span {
+    width: 4.2rem;
+    height: 3rem;
+    line-height: 3rem;
+  }
+  .controls-container {
+    zoom: 0.87;
+  }
+}
+
