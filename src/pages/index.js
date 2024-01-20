@@ -10,6 +10,8 @@ import FeatureColumns from '../components/feature-columns'
 import HeaderHero2 from '../components/header-hero' 
 import { TwoColumns, Section } from '../components'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const textContent = {
   left: `
 - Easy to learn
@@ -31,54 +33,61 @@ const textContent = {
 const codeBlocks = [
   {text: `## Simple primitives
 **xoid** is based on *atoms*. Atoms are holders of state. \`create\` function is used to create them.
-
-It has a **Recoil**-inspired API for derived atoms. 
-
   `,
 code: `import create from 'xoid'
 
-const $counter = create(3)
-console.log($counter.value) // 3
-$counter.set(5)
-$counter.update((state) => state + 1)
-console.log($counter.value) // 6
+const $count = create(3)
 
-const $doubleCounter = create((read) => read($counter) * 2)
+$count.set(5)
+$count.update((state) => state + 1)
+console.log($count.value) // 6
 `},
   {
     text: `## Actions
 
-With the second argument, you can specify actions for your atoms.
+With the second argument, you can define actions for your atoms.
 
 `,
     code: `import create from 'xoid'
 
-const $counter = create(3, (atom) => ({
+const $count = create(3, (atom) => ({
   increment: () => atom.update((s) => s + 1),
   incrementBy: (by) => atom.update((s) => s + by)
 }))
 
-$counter.actions.incrementBy(5)
+$count.actions.incrementBy(5)
 `,
   },
   {
     text: `
-## Framework integrations
+## Computed Values
 
-**xoid** has **React**, **Vue**, and **Svelte** integrations.
-Just import \`useAtom\` and start using!
+It has a **Recoil**-inspired API for derived atoms. Alternatively, the \`.map\` method can be used.
+`,
+code: `import create from 'xoid'
 
+const $doubleCount = create((get) => get($count) * 2)
+
+const $tripleCount = $count.map((state) => state * 3)
+
+`
+  },
+  {
+    text: `
+## Framework Integrations
+
+**xoid** has **React**, **Vue**, and **Svelte** integrations. It can be used without any framework as well.
 `,
     code: `import create from 'xoid'
 import { useAtom } from '@xoid/react'
 // @xoid/vue and @xoid/svelte packages are used the same way
 
 // in a component
-const count = useAtom($counter)
-const { increment } = $counter.actions
+const count = useAtom($count)
+const { increment } = $count.actions
 
 // vanilla JavaScript
-const unsubscribe = $counter.subscribe(console.log)
+const unsubscribe = $count.subscribe(console.log)
 `,
   },
   {
@@ -113,7 +122,7 @@ const red = { color: '#f00', onClick: () => machine.set(green) }
 const green = { color: '#0f0', onClick: () => machine.set(red) }
 const machine = create(red)
 
-// in a React component
+// in a component
 const { color, onClick } = useAtom(machine)
 return <div style={{ color }} onClick={onClick}/>
 `,
@@ -297,6 +306,8 @@ const Index = () => {
         <title>
           xoid · Framework-agnostic state management for JavaScript
         </title>
+        <meta name="viewport" content="width=device-width, initial-scale=0.82"/>
+
         {/* <script async defer src="https://buttons.github.io/buttons.js"></script> */}
       </Head>
       <HeaderHero />
@@ -312,8 +323,20 @@ const Index = () => {
       {codeBlocks.map((content, i) => (
         <NativeCode content={content} tint={!(i % 2)} corner={0} />
       ))}
+      {/* <div>
+        If you've read until here, you know the basics of xoid.
+        .value getter, set, update, subscribe, watch, focus, map
+      </div> */}
+      <div>
+        <BrowserOnly>
+          {() => {
+            const ReactiveDemo = require('../components/reactive-demo').default;
+            return <ReactiveDemo />;
+          }}
+        </BrowserOnly>
+      </div>
       <Section background="none" className="Embed" style={{ display: 'flex', justifyContent: 'center', padding: 25 }}>
-        <iframe
+        {isProd && <iframe
           src="https://codesandbox.io/embed/cool-dream-wp9rn6?fontsize=14&hidenavigation=1&theme=dark"
           style={{
             width: "100%",
@@ -325,7 +348,7 @@ const Index = () => {
           }}
           title="competent-carson-j2tfqm"
           sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-        />
+        />}
       </Section>
       <NativeApps />
     </Layout>

@@ -43,6 +43,11 @@ module.exports = {
   ],
   plugins: ['docusaurus-plugin-sass', './sitePlugin'],
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: false,
+      respectPrefersColorScheme: false,
+    },
     sidebarCollapsible: false,
     prism: {
       defaultLanguage: 'jsx',

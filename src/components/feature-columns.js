@@ -30,11 +30,10 @@ export default () => {
             </div>
             <div className="css-0">
               <h2 className="chakra-heading css-9dycqs">
-                Components
+                Small
               </h2>
               <p className="chakra-text css-s66uvp">
-                All premium components are available on a private NPM registery, no
-                more copy pasting and always up-to-date.
+                It's easy-to-learn, has no external dependencies, and it's only 1.1kB minified and gzipped.
               </p>
             </div>
           </div>
@@ -62,11 +61,11 @@ export default () => {
             </div>
             <div className="css-0">
               <h2 className="chakra-heading css-9dycqs">
-                Starterkits
+                Robust
               </h2>
               <p className="chakra-text css-s66uvp">
-                Example apps in Next.JS, Electron. Including authentication, billing,
-                example pages, everything you need to get started FAST.
+                It's based on immutable updates and explicit subscriptions.
+                This makes it ideal for teams.
               </p>
             </div>
           </div>
@@ -94,11 +93,10 @@ export default () => {
             </div>
             <div className="css-0">
               <h2 className="chakra-heading css-9dycqs">
-                Documentation
+                Well-documented
               </h2>
               <p className="chakra-text css-s66uvp">
-                Extensively documented, including storybooks, best practices,
-                use-cases and examples.
+                Extensively documented, including a rich "Recipes" section and examples.
               </p>
             </div>
           </div>

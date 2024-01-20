@@ -353,6 +353,7 @@ code .token.tag {
 
 .controls-container label span {
   box-shadow: 0 0 0 1px rgb(96, 94, 129);
+  white-space: nowrap;
 }
 
 html[data-theme="light"] .Section.demo {
@@ -388,6 +389,9 @@ html[data-theme="light"] .Section.demo {
   margin: auto;
   gap: 39px;
   position: relative;
+  & > div {
+    flex: 1;
+  }
 }
 
 @media only screen and (max-width: 960px) {
@@ -409,6 +413,7 @@ html[data-theme="light"] .Section.demo {
   }
   .controls-container {
     zoom: 0.9;
+    padding-right: 0;
   }
 }
 
@@ -423,3 +428,9 @@ html[data-theme="light"] .Section.demo {
   }
 }
 
+
+fieldset.large label span {
+  min-width: 4.9rem;
+  width: auto;
+  padding: 0 15px;
+}

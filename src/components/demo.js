@@ -2,11 +2,7 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import autoAnimate from '@formkit/auto-animate';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
-
-const animationOptions = {
-  duration: 330,
-  easing: 'ease-in-out',
-};
+import CodeAnimate from './code-animate';
 
 export const options = {
   reusability: 'medium', // high, medium, low
@@ -283,86 +279,22 @@ const getLines = () => {
   return text.split('\n').map((s) => (!s ? ' ' : s));
 };
 
-const getKey = (line) =>
-  line
-    .trim()
-    .replace(/^(export )?const /, '')
-    .substring(0, 7);
-
 window.addEventListener('build', () => {
   const el = document.querySelector('.code-demo-container')
 
   el.classList.remove('animate')
   setTimeout(() => el.classList.add('animate'))
 })
-
+    
 export default function App() {
   const [lines, setLines] = useState(() => getLines());
-  const keys = useMemo(() => {
-    const arr = [];
-    const cache = {};
-    let j = 0;
-    lines.forEach((line) => {
-      let attempt = getKey(line);
-      if (!attempt) {
-        arr.push(++j);
-        return;
-      }
-      if (cache[attempt]) attempt = attempt + ++cache[attempt];
-      arr.push(attempt);
-      cache[attempt] = 1;
-    });
-    return arr;
-  }, [lines]);
-
-  const ref = useRef();
   useEffect(() => {
-    if (ref.current) autoAnimate(ref.current, animationOptions);
     const listener = () => setLines(() => getLines());
     window.addEventListener('build', listener, false);
     return () => window.removeEventListener('build', listener, false);
   }, []);
 
   return (
-    <code ref={ref}>
-      {lines.map((line, i) => (
-        line === '---' ? <Splitter framework={options.framework} key={'---'} /> : <Line key={keys[i]} line={line} />
-      ))}
-    </code>
+    <CodeAnimate lines={lines} framework={options.framework} />
   );
 }
-
-const Line = (props) => {
-  const { line } = props;
-  const indent = line.match(/^\s*/)[0].length;
-  const hasConst = line.match('const');
-  const hasExportConst = line.match('export const');
-
-  const num = 13 - (hasExportConst ? 13 : hasConst ? 6 : 0);
-  return (
-    <div
-      style={{
-        marginLeft: indent - num + 'ch',
-        paddingLeft: num - indent + 'ch',
-      }}
-      className={'line'}
-      dangerouslySetInnerHTML={{
-        __html:
-          Prism.highlight(
-            line || ' ',
-            Prism.languages.jsx,
-            'javascript'
-          ),
-      }}
-    />
-  );
-};
-
-function Splitter(props) {
-  return <div className='splitter'>
-    <div className='filename'>
-      Counter.{props.framework}
-    </div>
-  </div>;
-}
-
