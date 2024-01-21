@@ -35,7 +35,9 @@
     "alex": "^9.0.1",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
-    "glob-promise": "^3.4.0",
-    "path": "^0.12.7"
+    "glob-promise": "^3.4.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
   }
 }
