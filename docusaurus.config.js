@@ -48,7 +48,6 @@ module.exports = {
       disableSwitch: false,
       respectPrefersColorScheme: false,
     },
-    sidebarCollapsible: false,
     prism: {
       defaultLanguage: 'jsx',
       theme: require('./core/PrismTheme'),
@@ -150,7 +149,7 @@ module.exports = {
     // gtag: {
     //   trackingID: 'xxxx',
     // },
-    metadatas: [
+    metadata: [
       {
         name: 'description',
         content: 'Framework-agnostic state management library designed for simplicity and scalability',

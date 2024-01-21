@@ -1,16 +1,16 @@
 import React from 'react'
 import Layout from '@theme/Layout'
 import CodeBlock from '@theme/CodeBlock'
-import GitHubButton from 'react-github-btn'
+// import GitHubButton from 'react-github-btn'
 import Head from '@docusaurus/Head'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import marked from 'marked'
+import { marked } from 'marked'
 import Frameworks from '../components/frameworks'
 import FeatureColumns from '../components/feature-columns'
 import HeaderHero2 from '../components/header-hero' 
 import { TwoColumns, Section } from '../components'
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = true // process.env.NODE_ENV === 'production'
 
 const textContent = {
   left: `
@@ -180,19 +180,19 @@ function TwitterButton() {
   )
 }
 
-function GitHubStarButton() {
-  return (
-    <div className="github-button">
-      <GitHubButton
-        href="https://github.com/xoidlabs/xoid"
-        data-icon="octicon-star"
-        data-size="large"
-        aria-label="Star xoidlabs/xoid on GitHub">
-        Star
-      </GitHubButton>
-    </div>
-  )
-}
+// function GitHubStarButton() {
+//   return (
+//     <div className="github-button">
+//       <GitHubButton
+//         href="https://github.com/xoidlabs/xoid"
+//         data-icon="octicon-star"
+//         data-size="large"
+//         aria-label="Star xoidlabs/xoid on GitHub">
+//         Star
+//       </GitHubButton>
+//     </div>
+//   )
+// }
 
 function HeaderHero() {
   return (
