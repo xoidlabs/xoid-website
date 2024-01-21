@@ -42,7 +42,7 @@
   --ifm-alert-border-radius: 0;
   --ifm-alert-color: var(--ifm-font-color-base);
   --ifm-pagination-nav-color-hover: var(--ifm-color-emphasis-300);
-  --ifm-navbar-sidebar-width: 50%;
+  --ifm-navbar-sidebar-width: 50vw;
   --doc-sidebar-width: 100%;
 }
 
@@ -98,6 +98,10 @@ hr {
   border: 0;
   height: 2px;
   background-color: var(--ifm-hr-border-color);
+}
+
+code {
+  border: 0;
 }
 
 .markdown {
@@ -561,6 +565,10 @@ html[data-theme="light"] {
   .navbar__link--active:after {
     display: none;
   }
+}
+
+.navbar-sidebar {
+  background: var(--deepdark);
 }
 
 html[data-theme="dark"] .navbar-sidebar {

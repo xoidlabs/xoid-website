@@ -82,15 +82,15 @@ export default () => {
         <fieldset>
           {/* <div className="checkbox">
             <input id="c1" type="checkbox" disabled={options.framework !== 'react'} checked={state.signals} onChange={(e) => set('signals', e.target.checked)} />
-            <label for="c1">Signals</label>
+            <label htmlFor="c1">Signals</label>
           </div> */}
           <div className="checkbox">
             <input id="c1" type="checkbox" checked={state.setterUpdates} onChange={(e) => set('setterUpdates', e.target.checked)} />
-            <label for="c1">Setters</label>
+            <label htmlFor="c1">Setters</label>
           </div>
           {/* <div className="checkbox">
             <input id="c1" type="checkbox" />
-            <label for="c1">Shorthands</label>
+            <label htmlFor="c1">Shorthands</label>
           </div> */}
           </fieldset>
             <a className='github-star' target="_blank" href="https://github.com/xoidlabs/xoid">

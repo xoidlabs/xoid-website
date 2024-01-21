@@ -513,8 +513,16 @@ html[data-theme="dark"] {
 
 /* Native Code */
 
+html[data-theme=light] .NativeCode .column.last {
+  background: #1d1c41;
+}
+
+.Section:not(.NativeCode) {
+  padding-bottom: 39px;
+}
+
 .NativeCode .column.last {
-  margin-bottom: -39px;
+  margin-bottom: -24px;
 }
 
 .NativeCode pre {
@@ -614,8 +622,7 @@ html[data-theme="dark"] {
 .Section {
   width: 100%;
   padding-top: 39px;
-  padding-bottom: 39px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .Section + .Section {
@@ -717,12 +724,6 @@ html[data-theme="dark"] .Section p a {
 .TwoColumns .column.last {
   grid-area: last;
   font-size: 18px;
-}
-
-html[data-theme="light"] {
-  .TwoColumns .column.last {
-    background: #000 linear-gradient(-60deg,#0064cc4a,#3e2ba74d 50%,rgba(24, 34, 92, 80%));
-  }
 }
 
 @media only screen and (min-width: 961px) {
@@ -914,7 +915,7 @@ html[data-theme="light"] {
   font-size: 15px;
 }
 
-.theme-code-block {
+article .theme-code-block {
   background-color: #1a1a2c !important;
 }
 
@@ -942,18 +943,18 @@ html[data-theme=light] .NativeCode.corner .TwoColumns .column.last.right {
 @media only screen and (min-width: 961px) { 
   html[data-theme="light"] {
     .NativeCode .prism-code {
-      background: rgb(31 30 66);
+      background: rgb(31 30 66) !important;
       box-shadow: inset 0 2px 0px -1px rgba(255, 255, 255, 0.08);
     }
     .NativeCode.tint .prism-code {
-      background: rgb(27, 28, 59);
+      background: rgb(27, 28, 59) !important;
     }
   }
 }
 
 @media only screen and (max-width: 600px) {
   .NativeCode .prism-code {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
