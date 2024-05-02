@@ -1,7 +1,6 @@
 import React from 'react'
 import Layout from '@theme/Layout'
 import CodeBlock from '@theme/CodeBlock'
-// import GitHubButton from 'react-github-btn'
 import Head from '@docusaurus/Head'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { marked } from 'marked'
@@ -9,9 +8,6 @@ import Frameworks from '../components/frameworks'
 import FeatureColumns from '../components/feature-columns'
 import HeaderHero2 from '../components/header-hero' 
 import { TwoColumns, Section } from '../components'
-
-const DemoSection = require('../components/demo-section').default;
-
 
 const isProd = true // process.env.NODE_ENV === 'production'
 
@@ -315,7 +311,12 @@ const Index = () => {
       </Head>
       <HeaderHero />
       <div>
-        <DemoSection />
+        <BrowserOnly>
+          {() => {
+            const DemoSection = require('../components/demo-section').default;
+            return <DemoSection />;
+          }}
+        </BrowserOnly>
       </div>
       <FeatureColumns />
       {codeBlocks.map((content, i) => (
