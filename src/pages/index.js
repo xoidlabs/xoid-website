@@ -10,6 +10,9 @@ import FeatureColumns from '../components/feature-columns'
 import HeaderHero2 from '../components/header-hero' 
 import { TwoColumns, Section } from '../components'
 
+const DemoSection = require('../components/demo-section').default;
+
+
 const isProd = true // process.env.NODE_ENV === 'production'
 
 const textContent = {
@@ -32,11 +35,11 @@ const textContent = {
 
 const codeBlocks = [
   {text: `## Simple primitives
-**xoid** is based on *atoms*. Atoms are holders of state. \`create\` function is used to create them.
+**xoid** is based on *atoms*. Atoms are holders of state. \`atom\` function is used to create them.
   `,
-code: `import create from 'xoid'
+code: `import { atom } from 'xoid'
 
-const $count = create(3)
+const $count = atom(3)
 
 $count.set(5)
 $count.update((state) => state + 1)
@@ -48,9 +51,9 @@ console.log($count.value) // 6
 With the second argument, you can define actions for your atoms.
 
 `,
-    code: `import create from 'xoid'
+    code: `import { atom } from 'xoid'
 
-const $count = create(3, (atom) => ({
+const $count = atom(3, (atom) => ({
   increment: () => atom.update((s) => s + 1),
   incrementBy: (by) => atom.update((s) => s + by)
 }))
@@ -64,9 +67,9 @@ $count.actions.incrementBy(5)
 
 It has a **Recoil**-inspired API for derived atoms. Alternatively, the \`.map\` method can be used.
 `,
-code: `import create from 'xoid'
+code: `import { atom } from 'xoid'
 
-const $doubleCount = create((get) => get($count) * 2)
+const $doubleCount = atom((get) => get($count) * 2)
 
 const $tripleCount = $count.map((state) => state * 3)
 
@@ -78,7 +81,7 @@ const $tripleCount = $count.map((state) => state * 3)
 
 **xoid** has **React**, **Vue**, and **Svelte** integrations. It can be used without any framework as well.
 `,
-    code: `import create from 'xoid'
+    code: `import { atom } from 'xoid'
 import { useAtom } from '@xoid/react'
 // @xoid/vue and @xoid/svelte packages are used the same way
 
@@ -97,17 +100,17 @@ const unsubscribe = $count.subscribe(console.log)
 There's the \`.focus\` method, which can be used as a selector/lens. 
 **xoid** is based on immutable updates, so if you "surgically" set state of a focused branch, changes will propagate to the root.
 `,
-    code: `import create from 'xoid'
+    code: `import { atom } from 'xoid'
 
-const atom = create({ deeply: { nested: { alpha: 5 } } })
+const $atom = atom({ deeply: { nested: { alpha: 5 } } })
 const previousValue = atom.value
 
 // select \`.deeply.nested.alpha\`
-const alpha = atom.focus((s) => s.deeply.nested.alpha)
-alpha.update((s) => s + 1)
+const $alpha = $atom.focus((s) => s.deeply.nested.alpha)
+$alpha.update((s) => s + 1)
 
 // root state is replaced with new immutable state
-assert(atom.value !== previousValue) // ✅
+assert($atom.value !== previousValue) // ✅
 `,
   },
   {
@@ -116,14 +119,14 @@ assert(atom.value !== previousValue) // ✅
 Atoms are potent primitives. No additional syntax is required for expressing finite state machines. 
 
 `,
-    code: `import create from 'xoid'
+    code: `import { atom } from 'xoid'
 
 const red = { color: '#f00', onClick: () => machine.set(green) }
 const green = { color: '#0f0', onClick: () => machine.set(red) }
-const machine = create(red)
+const $machine = atom(red)
 
 // in a component
-const { color, onClick } = useAtom(machine)
+const { color, onClick } = useAtom($machine)
 return <div style={{ color }} onClick={onClick}/>
 `,
   },
@@ -141,7 +144,7 @@ function ActionButton({ href, type = 'primary', target, children }) {
   )
 }
 
-function TextColumn({ title, text, moreContent }) {
+function TextColumn({ text, moreContent }) {
   return (
     <>
       <div dangerouslySetInnerHTML={{ __html: text }} />
@@ -312,12 +315,7 @@ const Index = () => {
       </Head>
       <HeaderHero />
       <div>
-        <BrowserOnly>
-          {() => {
-            const DemoSection = require('../components/demo-section').default;
-            return <DemoSection />;
-          }}
-        </BrowserOnly>
+        <DemoSection />
       </div>
       <FeatureColumns />
       {codeBlocks.map((content, i) => (

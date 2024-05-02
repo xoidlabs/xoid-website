@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Section } from './'
-import Demo, { options, buildEvent } from './demo'
+import { defaultOptions, getText } from './demo'
+import CodeAnimate from "code-animate";
+import Prismjs from 'prismjs'
+import 'prismjs/components/prism-jsx';
+
 
 // setTimeout(() => {
 //   var prt = document.querySelector('.metaballs');
@@ -19,19 +23,22 @@ import Demo, { options, buildEvent } from './demo'
 
 
 export default () => {
-  const [state, setState] = useState(options)
+  const [state, setState] = useState(defaultOptions)
+  const codeText = useMemo(() => getText(state), [state])
 
   // TODO: fix sloppy, lazy implementation
   const set = (a, b) => {
-    options[a] = b
-    if(options.framework !== 'react' && options.framework !== 'doja') {
-      options.signals = false
-    }
-    if(options.framework === 'doja') options.signals = true
-    else options.signals = false
-    setState({ ...options })
+    setState((options) => {
+      const patches = {}
+      patches[a] = b
+      if(options.framework !== 'react' && options.framework !== 'doja') {
+        patches.signals = false
+      }
+      if(options.framework === 'doja') options.signals = true
+      else patches.signals = false
 
-    window.dispatchEvent(buildEvent)
+      return { ...options, ...patches }
+    })
   }
 
   return (
@@ -94,8 +101,8 @@ export default () => {
           </div> */}
           </fieldset>
             <a className='github-star' target="_blank" href="https://github.com/xoidlabs/xoid">
-            Star us on GitHub 🤩
-            <img src="https://img.shields.io/github/stars/xoidlabs/xoid.svg?style=social&label=Star" aria-label="Star xoidlabs/xoid on GitHub" />
+              Star us on GitHub 🤩
+              <img src="https://img.shields.io/github/stars/xoidlabs/xoid.svg?style=social&label=Star" aria-label="Star xoidlabs/xoid on GitHub" />
             </a>
       </div>
       </div>
@@ -106,7 +113,11 @@ export default () => {
           <div className="btn"></div>
           <div className="btn"></div>
         </div>
-        <Demo/>
+        <CodeAnimate 
+          value={codeText}     
+          checkSpecialLine={(line) => ['---'].includes(line)}
+          renderSpecialLine={() => <hr />}
+        />
       </div>
     </div>
   </Section>

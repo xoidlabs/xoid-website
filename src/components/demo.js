@@ -1,10 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
-import autoAnimate from '@formkit/auto-animate';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-jsx';
-import CodeAnimate from './code-animate';
-
-export const options = {
+export const defaultOptions = {
   reusability: 'medium', // high, medium, low
   setterUpdates: true, // on/off
   globalState: true, // global, local
@@ -14,67 +8,7 @@ export const options = {
   addExports: true,
 };
 
-export const buildEvent = new Event('build');
-// const pane = new Pane();
-// pane.on('change', () => window.dispatchEvent(buildEvent));
-
-// pane
-//   .addBlade({
-//     view: 'list',
-//     label: 'Framework',
-//     options: [
-//       { text: 'React', value: 'react' },
-//       { text: 'Doja', value: 'doja' },
-//       { text: 'Vue', value: 'vue' },
-//       { text: 'Svelte', value: 'svelte' },
-//     ],
-//     value: options.framework,
-//   })
-//   .on('change', ({ value }) => {
-//     options.framework = value;
-//     if (value === 'doja') {
-//       options.signals = true;
-//       pane.refresh();
-//     }
-//   });
-
-// pane
-//   .addBlade({
-//     view: 'list',
-//     label: 'Reusability',
-//     options: [
-//       { text: 'Highest', value: 'highest' },
-//       { text: 'High', value: 'high' },
-//       { text: 'Medium', value: 'medium' },
-//       { text: 'Low', value: 'low' },
-//     ],
-//     value: options.reusability,
-//   })
-//   .on('change', ({ value }) => {
-//     options.reusability = value;
-//   });
-
-// let lastGlobal;
-
-// pane
-//   .addBlade({
-//     view: 'list',
-//     label: 'State',
-//     options: [
-//       { text: 'Global', value: true },
-//       { text: 'Local', value: false },
-//     ],
-//     value: options.globalState,
-//   })
-//   .on('change', ({ value }) => {
-//     lastGlobal = options.globalState;
-//     options.globalState = value;
-//   });
-
-// pane.addBinding(options, 'signals', { label: 'Signals' });
-// pane.addBinding(options, 'setterUpdates', { label: 'Setters' });
-
-function getText() {
+export function getText(options) {
   const inc = (name, sign = '+') =>
     !options.setterUpdates
       ? `() => ${name}.update((s) => s ${sign} 1)`
@@ -91,20 +25,20 @@ function getText() {
   const decrement = ${dec('$counter')}`;
 
   const modelDeclarationText = `export const NumberModel = (payload) =>
-  create(payload, (atom) => ({
-    increment: ${inc('atom')},
-    decrement: ${dec('atom')},
+  atom(payload, (a) => ({
+    increment: ${inc('a')},
+    decrement: ${dec('a')},
   }))`;
 
   const globalDeclarationText =
     options.reusability === 'highest'
       ? `const $counter = NumberModel(0)`
       : options.reusability === 'high'
-      ? `const $counter = create(0, (atom) => ({
-  increment: ${inc('atom')},
-  decrement: ${dec('atom')},
+      ? `const $counter = atom(0, (a) => ({
+  increment: ${inc('a')},
+  decrement: ${dec('a')},
 }))`
-      : `const $counter = create(0)`;
+      : `const $counter = atom(0)`;
 
   const maybeDoja = (str) =>
     options.framework === 'react'
@@ -154,7 +88,7 @@ function getText() {
       ? `<script${options.framework === 'vue' ? ' setup' : ''}>
 ${[
   options.reusability !== 'highest' && !options.globalState
-    ? `  import create from 'xoid'`
+    ? `  import { atom } from 'xoid'`
     : ``,
   `  ${frameworkImportText}`,
   options.reusability === 'highest' && !options.globalState
@@ -212,15 +146,6 @@ ${[
     options.framework === 'react' ? frameworkImportText : '',
   ];
 
-  // if (!lastGlobal && options.globalState) {
-  //   if (!options.addExports) {
-  //     setTimeout(() => {
-  //       options.addExports = true;
-  //       window.dispatchEvent(buildEvent);
-  //     }, 500);
-  //   }
-  // } else options.addExports = false;
-
   const maybeReplaceConst = (s) => {
     if (!options.addExports) return s;
     return s.replace(/const/g, 'export const');
@@ -255,13 +180,13 @@ ${[
         !options.globalState ? localDeclarationText : '',
         options.signals ? '' : `  const count = useAtom($counter)`,
         componentActions,
-      ]),
+      ], options),
       reactFooter,
     ],
   ]);
 }
 
-const maybeAddNewLine = (arr) => {
+const maybeAddNewLine = (arr, options) => {
   if (options.framework !== 'react' && options.framework !== 'doja') {
     if (options.framework === 'svelte')
     arr = arr.map((s) => s.replace(/\$counter/g, 'counterAtom'));
@@ -273,28 +198,3 @@ const maybeAddNewLine = (arr) => {
 
   return arr;
 };
-
-const getLines = () => {
-  const text = getText();
-  return text.split('\n').map((s) => (!s ? ' ' : s));
-};
-
-window.addEventListener('build', () => {
-  const el = document.querySelector('.code-demo-container')
-
-  el.classList.remove('animate')
-  setTimeout(() => el.classList.add('animate'))
-})
-    
-export default function App() {
-  const [lines, setLines] = useState(() => getLines());
-  useEffect(() => {
-    const listener = () => setLines(() => getLines());
-    window.addEventListener('build', listener, false);
-    return () => window.removeEventListener('build', listener, false);
-  }, []);
-
-  return (
-    <CodeAnimate lines={lines} framework={options.framework} />
-  );
-}
