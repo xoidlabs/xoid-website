@@ -326,14 +326,14 @@ const Index = () => {
         If you've read until here, you know the basics of xoid.
         .value getter, set, update, subscribe, watch, focus, map
       </div> */}
-      <div>
+      {/* <div>
         <BrowserOnly>
           {() => {
             const ReactiveDemo = require('../components/reactive-demo').default;
             return <ReactiveDemo />;
           }}
         </BrowserOnly>
-      </div>
+      </div> */}
       <Section background="none" className="Embed" style={{ display: 'flex', justifyContent: 'center', padding: 25 }}>
         {isProd && <iframe
           src="https://codesandbox.io/embed/cool-dream-wp9rn6?fontsize=14&hidenavigation=1&theme=dark"

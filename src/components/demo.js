@@ -141,7 +141,7 @@ ${[
       ? `import Doja, { create } from 'doja'`
       : options.framework === 'react' ||
         !(!options.globalState && options.reusability !== 'highest')
-      ? `import create from 'xoid'`
+      ? `import { atom } from 'xoid'`
       : '',
     options.framework === 'react' ? frameworkImportText : '',
   ];
