@@ -21,6 +21,11 @@ import 'prismjs/components/prism-jsx';
 //   }
 // })
 
+const getKey = (line) =>
+  line
+    .trim()
+    .replace(/^(export )?const /, '')
+    .substring(0, 7);
 
 export default () => {
   const [state, setState] = useState(defaultOptions)
@@ -116,10 +121,19 @@ export default () => {
         <CodeAnimate 
           value={codeText}     
           checkSpecialLine={(line) => ['---'].includes(line)}
-          renderSpecialLine={() => <hr />}
+          renderSpecialLine={() => <Splitter framework={state.framework} key={'---'} />}
+          getKey={getKey}
         />
       </div>
     </div>
   </Section>
   )
+}
+
+function Splitter(props) {
+  return <div className='splitter'>
+    <div className='filename'>
+      Counter.{props.framework}
+    </div>
+  </div>;
 }
